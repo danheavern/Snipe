@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, Navigator} from 'react-native';
+import {AppRegistry, Text, View, Navigator, StyleSheet} from 'react-native';
 
 import FriendsList from './app/components/FriendsList/FriendsList';
 import Signup from './app/components/Signup/Signup';
 import Login from './app/components/Login/Login';
 
+import {
+  Router,
+  Scene,
+} from 'react-native-router-flux';
 
 export default class Snipe extends Component{
    //  renderScene(route, navigator){
@@ -19,11 +23,49 @@ export default class Snipe extends Component{
 
   render(){
     return(
-       <View>
-        <FriendsList />
-       </View>
+       <Router>
+          <Scene key='root'>
+            <Scene 
+              key='home' 
+              component={Login} 
+              title='Login' 
+              initial={true}
+              navigationBarStyle={styles.navBar} 
+              hideNavBar={true}
+            />
+            <Scene 
+              key='signup' 
+              component={Signup} 
+              title='Signup' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='friendsList' 
+              component={FriendsList} 
+              title='Friends' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+          </Scene>
+       </Router>
       );
   }
 }
+const styles = StyleSheet.create({
+    navBar: {
+        backgroundColor: '#019875',
+    },
+    title: {
+      textAlign: 'center',
+      color: 'white',
+      fontWeight: '400',
+      opacity: 0.7
+    }
+});
 
 AppRegistry.registerComponent('Snipe', () => Snipe);

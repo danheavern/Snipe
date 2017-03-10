@@ -1,53 +1,71 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React, {Component} from 'react';
+import {AppRegistry, Text, View, Navigator, StyleSheet} from 'react-native';
 
-import React, { Component } from 'react';
+import FriendsList from './app/components/FriendsList/FriendsList';
+import Signup from './app/components/Signup/Signup';
+import Login from './app/components/Login/Login';
+
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+  Router,
+  Scene,
+} from 'react-native-router-flux';
 
-export default class Snipe extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
+export default class Snipe extends Component{
+   //  renderScene(route, navigator){
+   //   switch(route.id){
+   //     case 'Login':
+   //       return (<Login navigator={navigator} title="Login" />)
+      // case 'Signup':
+   //       return (<Signup user={route.user} navigator={navigator} title="Signup" />)
+   //   }
+   //  }
+
+
+  render(){
+    return(
+       <Router>
+          <Scene key='root'>
+            <Scene 
+              key='home' 
+              component={Login} 
+              title='Login' 
+              initial={true}
+              navigationBarStyle={styles.navBar} 
+              hideNavBar={true}
+            />
+            <Scene 
+              key='signup' 
+              component={Signup} 
+              title='Signup' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='friendsList' 
+              component={FriendsList} 
+              title='Friends' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+          </Scene>
+       </Router>
+      );
   }
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    navBar: {
+        backgroundColor: '#019875',
+    },
+    title: {
+      textAlign: 'center',
+      color: 'white',
+      fontWeight: '400',
+      opacity: 0.7
+    }
 });
 
 AppRegistry.registerComponent('Snipe', () => Snipe);

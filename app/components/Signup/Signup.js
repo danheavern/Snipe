@@ -7,12 +7,11 @@ export default class Signup extends Component{
   render(){
     return(
       	<View style={styles.container}>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>SIGN UP</Text>
-            </View>
+            
             <View style={styles.inputContainer}>
               <TextInput 
                 placeholder="username"
+                defaultValue={this.props.name}
                 style={styles.input}
               />
               <TextInput 
@@ -63,6 +62,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        marginTop: 45,
         backgroundColor: '#2ECC71'
     },
     inputContainer: {

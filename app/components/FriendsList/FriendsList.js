@@ -59,7 +59,7 @@ export default class FriendsList extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#2ECC71'
+        //backgroundColor: '#2ECC71'
     },
     row: {
         flexDirection:'row',

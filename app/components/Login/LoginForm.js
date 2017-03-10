@@ -1,24 +1,65 @@
 import React, {Component} from 'react';
-import {TextInput, View, StyleSheet, TouchableOpacity, Text, ListView} from 'react-native';
+import {
+    TextInput, 
+    View, 
+    StyleSheet, 
+    TouchableOpacity, 
+    Text, 
+    ListView
+} from 'react-native';
 
+import {
+    Actions
+} from 'react-native-router-flux';
 export default class LoginForm extends Component{
-	render(){
+	state ={
+        name: '',
+        password: '',
+    };
+    render(){
 	    return(
 	        <View style={styles.container}>
 	           	<TextInput 
 	           		placeholder="username or email"
 	           		style={styles.input}
+                    onChangeText={(text) => {
+                        this.setState({
+                            name: text,
+                        })
+                    }}
 	       		/>
 	       		<TextInput
 	       			placeholder="password"
 	       			style={styles.input}
 	       			secureTextEntry
+                    onChangeText={(text) => {
+                        this.setState({
+                            password: text,
+                        })
+                    }}
 	   			/>
 
-	   			<TouchableOpacity style={styles.buttonContainer}>
+	   			<TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => {
+                        //navigate to friends page
+                        Actions.friendsList({
+                            name: this.state.name,
+                            name: this.state.password
+                        });
+                    }}
+                >
 	   				<Text style={styles.buttonText}>LOGIN</Text>
 	   			</TouchableOpacity>
-	   			<TouchableOpacity style={styles.buttonContainer}>
+	   			<TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => {
+                        //navigate to signup page
+                        Actions.signup({
+                            name: this.state.name
+                        });
+                    }}
+                >
 	   				<Text style={styles.buttonText}>SIGN UP</Text>
 	   			</TouchableOpacity>
 	   			

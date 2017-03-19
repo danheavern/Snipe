@@ -16,7 +16,7 @@ export default class Login extends Component{
         <View style={styles.container}>
            <View style={styles.logoContainer}>
             <Image 
-                source={require('../../../Images/TempSnipeLogo.png')}
+                source={require('../../../Images/SnipeLogo2.png')}
                 style={styles.logo}
             />
             <Text style={styles.formText}>An app made to tag your friends using React Native</Text>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     logo: {
         height: 70,
         width: 160,
-        opacity: 0.9
+        opacity: 0.85
     },
     formContainer: {
         // align: 'center',

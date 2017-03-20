@@ -4,6 +4,7 @@ import {AppRegistry, Text, View, Navigator, StyleSheet} from 'react-native';
 import FriendsList from './app/components/FriendsList/FriendsList';
 import Signup from './app/components/Signup/Signup';
 import Login from './app/components/Login/Login';
+import CameraView from './app/components/CameraView/CameraView';
 
 import {
   Router,
@@ -46,6 +47,15 @@ export default class Snipe extends Component{
               key='friendsList' 
               component={FriendsList} 
               title='Friends' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='cameraView' 
+              component={CameraView} 
+              title='Camera' 
               titleStyle={styles.title}
               hideNavBar={false}
               navigationBarStyle={styles.navBar}

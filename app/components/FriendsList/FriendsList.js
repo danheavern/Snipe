@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import {AppRegistry, Text, View, ListView, StyleSheet, TouchableHighlight} from 'react-native';
 
+import {
+    Actions
+} from 'react-native-router-flux';
+
 export default class FriendsList extends Component{
+    state ={
+        friend: ''
+    };
    constructor(){
     	super();
     	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -24,17 +31,16 @@ export default class FriendsList extends Component{
     		});
     }
 
-    onPress(user){
-    	this.props.navigator.push({
-    		id: 'component6',
-    		user:user
-    	})
-    }
     
   
 	renderRow(user, sectionId, rowId, highlightRow){
 	    	return(
-	    		<TouchableHighlight onPress={() => {this.onPress(user)}}>
+	    		<TouchableHighlight onPress={() => {
+                        //navigate to camera page
+                        Actions.cameraView({
+                            friend: this.state.friend
+                        });
+                    }}>
 		    		<View style={styles.row}>
 		    		  <Text style={styles.rowText}>{user.name}: {user.email}</Text>
 		    		</View>

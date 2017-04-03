@@ -23,8 +23,9 @@ export default class CameraView extends Component{
             this.camera = cam;
           }}
           style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+          aspect={Camera.constants.Aspect.fill}
+          type="front">
+          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>Snipe</Text>
         </Camera>
       </View>
       );
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: '#000',
     padding: 10,
-    margin: 40
+    margin: 40,
+    opacity: 0.5
   }
 });
 

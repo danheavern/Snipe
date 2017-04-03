@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {AppRegistry, Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 
+import * as firebase from 'firebase';
+
+import {
+    Actions
+} from 'react-native-router-flux';
 
 export default class Signup extends Component{
 
@@ -34,6 +39,12 @@ export default class Signup extends Component{
               />
               <TouchableOpacity
                 style={styles.submit}
+                onPress={() => {
+                        //navigate to signup page
+                    Actions.friendsList({
+                        name: this.props.name
+                    });
+                }}
               >
                 <Text style={styles.buttonText}>SUBMIT</Text>
               </TouchableOpacity>
@@ -47,23 +58,11 @@ export default class Signup extends Component{
 }
 
 const styles = StyleSheet.create({
-    header: {
-        marginTop: 10,
-        justifyContent: 'center',
-        height: 60
-    },
-    headerText: {
-        textAlign: 'center',
-        color: 'white',
-        fontSize: 25,
-        fontWeight: '200',
-        opacity: 0.8
-    },
     container: {
+        backgroundColor: '#CF000F',
         flex: 1,
         padding: 20,
-        marginTop: 45,
-        backgroundColor: '#2ECC71'
+        marginTop: 45
     },
     inputContainer: {
         marginTop: 10
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     submit: {
-      backgroundColor: '#019875',
+      backgroundColor: '#22313F',
       paddingVertical: 15,
       height: 40,
       justifyContent: 'center',

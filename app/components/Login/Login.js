@@ -14,12 +14,15 @@ export default class Login extends Component{
   render(){
     return(
         <View style={styles.container}>
-           <View style={styles.logoContainer}>
-            <Image 
-                source={require('../../../Images/SnipeLogo2.png')}
-                style={styles.logo}
-            />
-            <Text style={styles.formText}>An app made to tag your friends using React Native</Text>
+           <View style={styles.info}> 
+               <View style={styles.logoContainer}>
+                <Image 
+                    source={require('../../../Images/BirdLogo.png')}
+                    style={styles.logo}
+                />
+                <Text style={styles.title}>Snipe</Text>
+                <Text style={styles.subtitle}>A tag game made with React Native</Text>
+               </View>
            </View>
             <View style={styles.formContainer}>
                <LoginForm />
@@ -32,20 +35,40 @@ export default class Login extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2ECC71'
+        backgroundColor: '#CF000F'  //flatuicolorpicker.com Monza
+    },
+    info: {
+        marginTop: 70,
+        alignItems: 'center',
+        flexGrow: 1
+    },
+    title: {
+        color: 'white',
+        fontSize: 50,
+        fontWeight: 'bold',
+        width: 200,
+        textAlign: 'center',
+        justifyContent: 'center',
+        opacity: 1.0
+    },
+    subtitle: {
+        color: 'white',
+        width: 200,
+        textAlign: 'center',
+        opacity: 0.85,
     },
     logoContainer: {
+        marginTop: 35,
         alignItems: 'center',
-        flexGrow: 1,
         justifyContent: 'center'
     },
     logo: {
-        height: 70,
+        height: 160,
         width: 160,
-        opacity: 0.85
+        opacity: 1.0
     },
     formContainer: {
-        // align: 'center',
+        flexGrow: 1
 
     },
     formText: {

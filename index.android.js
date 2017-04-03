@@ -5,11 +5,23 @@ import FriendsList from './app/components/FriendsList/FriendsList';
 import Signup from './app/components/Signup/Signup';
 import Login from './app/components/Login/Login';
 import CameraView from './app/components/CameraView/CameraView';
+import MainPage from './app/components/MainPage/MainPage';
 
 import {
   Router,
   Scene,
 } from 'react-native-router-flux';
+
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "<your-api-key>",
+  authDomain: "<your-auth-domain>",
+  databaseURL: "https://console.firebase.google.com/project/snipe-c9392/database/data/",
+  storageBucket: "<your-storage-bucket>",
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export default class Snipe extends Component{
    //  renderScene(route, navigator){
@@ -29,7 +41,7 @@ export default class Snipe extends Component{
             <Scene 
               key='home' 
               component={Login} 
-              title='Login' 
+              title='' 
               initial={true}
               navigationBarStyle={styles.navBar} 
               hideNavBar={true}
@@ -58,6 +70,15 @@ export default class Snipe extends Component{
               title='Camera' 
               titleStyle={styles.title}
               hideNavBar={false}
+              navigationBarStyle={styles.camNavBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='mainPage' 
+              component={MainPage} 
+              title='Games' 
+              titleStyle={styles.title}
+              hideNavBar={false}
               navigationBarStyle={styles.navBar}
               backButtonImage={require('Snipe/Images/back.png')}
             />
@@ -68,13 +89,19 @@ export default class Snipe extends Component{
 }
 const styles = StyleSheet.create({
     navBar: {
-        backgroundColor: '#019875',
+        backgroundColor: '#CF000F',
+        height: 55
+    },
+    camNavBar: {
+      backgroundColor: 'transparent',
+      height: 55,
+      opacity: 1.0
     },
     title: {
       textAlign: 'center',
       color: 'white',
       fontWeight: '400',
-      opacity: 0.7
+      opacity: 1.0
     }
 });
 

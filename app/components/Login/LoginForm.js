@@ -43,7 +43,7 @@ export default class LoginForm extends Component{
                     style={styles.buttonContainer}
                     onPress={() => {
                         //navigate to friends page
-                        Actions.friendsList({
+                        Actions.mainPage({
                             name: this.state.name,
                             name: this.state.password
                         });
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     	paddingHorizontal: 10
     },
     buttonContainer: {
-    	backgroundColor: '#019875',
+    	backgroundColor: '#22313F',
     	paddingVertical: 15,
     	height: 40,
     	justifyContent: 'center',

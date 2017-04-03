@@ -22,7 +22,7 @@ export default class FriendsList extends Component{
     }
 
     fetchUsers(){
-    	fetch('https://jsonplaceholder.typicode.com/users')
+    	fetch('http://jsonplaceholder.typicode.com/users')
     		.then((response) => response.json())
     		.then((response) => {
     			this.setState({

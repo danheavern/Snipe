@@ -6,6 +6,7 @@ import Signup from './app/components/Signup/Signup';
 import Login from './app/components/Login/Login';
 import CameraView from './app/components/CameraView/CameraView';
 import MainPage from './app/components/MainPage/MainPage';
+import GamePage from './app/components/GamePage/GamePage';
 
 import {
   Router,
@@ -79,6 +80,15 @@ constructor(props){
               navigationBarStyle={styles.navBar}
               backButtonImage={require('Snipe/Images/back.png')}
               direction='vertical'
+            />
+            <Scene 
+              key='gamePage' 
+              component={GamePage} 
+              title='default' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
             />
           </Scene>
        </Router>

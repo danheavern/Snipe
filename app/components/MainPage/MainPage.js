@@ -62,8 +62,9 @@ export default class MainPage extends Component{
       this.gamesRef.child(rowData.id).remove();
     }
     goToGame(rowData){
-      Actions.cameraView({
-
+      Actions.gamePage({
+        name: rowData.text,
+        gameID: rowData.id
       });
     }
 

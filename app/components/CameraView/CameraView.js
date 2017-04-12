@@ -12,10 +12,12 @@ import Camera from 'react-native-camera';
 import {
   Router,
   Scene,
+  Actions,
 } from 'react-native-router-flux';
 
 
 export default class CameraView extends Component{
+
   render(){
     return(
        <View style={styles.container}>

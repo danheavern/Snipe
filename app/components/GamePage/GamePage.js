@@ -26,13 +26,17 @@ export default class GamePage extends Component{
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             newImageURL: '',
-            imageSource: this.ds.cloneWithRows([])
+            imageSource: this.ds.cloneWithRows([]),
+            messageText: '',
+            user: 'user one',
+            user2: 'user two'
         };
         
     }
     componentDidMount() {
+      Actions.refresh({title: this.props.name});
       this.imagesRef.on('child_added', (dataSnapshot) => {
-        this.images.push({id: dataSnapshot.key, text: dataSnapshot.val().game});
+        this.images.push({id: dataSnapshot.key, text: dataSnapshot.val().url});
         this.setState({
           imageSource: this.state.imageSource.cloneWithRows(this.images)
         });
@@ -49,7 +53,7 @@ export default class GamePage extends Component{
       // TODO: write addGame so that game is added on button press
       if(this.state.newImageURL !== ''){
         this.imagesRef.push({
-          game: this.state.newImageURL
+          url: this.state.newImageURL
         });
         this.setState({
           newImageURL: ''
@@ -66,26 +70,39 @@ export default class GamePage extends Component{
 
       });
     }
+    // TODO: write sendMessage() so that messageText gets posted to firebase
+    //  and message shows up in chat
+    sendMessage(){
+      this.setState({
+        messageText: ''
+      });
+    }
+    approveImage(rowData) {
+      // TODO
+    }
+    disapproveImage(rowData) {
+      // TODO
+    }
 
 
   render(){
     return(
         <View style={styles.container}>
+            <ListView
+              dataSource={this.state.imageSource}
+              renderRow={this.renderRow.bind(this)}
+              style={styles.list}
+              enableEmptySections={true}
+            />
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="New Group" onChangeText={(text) => this.setState({newGame: text})} value={this.state.newGame}/>
+              <TextInput style={styles.input} placeholder="Type a message..." onChangeText={(text) => this.setState({messageText: text})} value={this.state.newGame}/>
               <TouchableOpacity
-                onPress={() => this.addGame()}
+                onPress={() => this.sendMessage()}
                 style={styles.button}
               >
                 <Image source ={require('../../../Images/create-group-button.png')} style={styles.buttonImage}/>
               </TouchableOpacity>
             </View>
-            <ListView
-              dataSource={this.state.gameSource}
-              renderRow={this.renderRow.bind(this)}
-              style={styles.list}
-            />
-            
         </View>
       );
   }
@@ -97,13 +114,28 @@ export default class GamePage extends Component{
       >
         <View>
           <View style={styles.row}>
-            <Text style={styles.rowText}>{rowData.text}</Text>
-            <TouchableOpacity
-                onPress={() => this.removeGame(rowData)}
-                style={styles.trashButton}
-              >
-                <Image source ={require('../../../Images/trash.png')} style={styles.trashButtonImage}/>
+            <View style={styles.rowHeader}>
+              <Text style={styles.rowHeaderText}>
+                <Text style={styles.userText}>{this.state.user} </Text> 
+                tagged 
+                <Text style={styles.userText}> {this.state.user2}</Text>
+              </Text>
+            </View>
+            <Image source={{uri: rowData.text}} style={styles.photoSquare}/>
+              <View style={styles.buttonRow}>
+              <TouchableOpacity
+                  onPress={() => this.approveImage(rowData)}
+                  style={styles.upButton}
+                >
+                  <Image source ={require('../../../Images/thumbs-up.png')} style={styles.upButtonImage}/>
               </TouchableOpacity>
+              <TouchableOpacity
+                  onPress={() => this.disapproveImage(rowData)}
+                  style={styles.downButton}
+                >
+                  <Image source ={require('../../../Images/thumbs-down.png')} style={styles.downButtonImage}/>
+              </TouchableOpacity>
+              </View>
           </View>
           <View style={styles.separator} />
         </View>
@@ -118,13 +150,12 @@ const styles = StyleSheet.create({
         flex: 1
     },
     row: {
-        flexDirection:'row',
+        flexDirection:'column',
         justifyContent:'space-between',
         padding:10,
         backgroundColor:'#f4f4f4',
         marginBottom:3,
         alignItems: 'center',
-        height: 50,
         marginLeft: 10,
         marginRight: 10
     },
@@ -132,9 +163,20 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginLeft: 15
     },
+    rowHeader: {
+      height: 30,
+      width: 300,
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    rowHeaderText: {
+      justifyContent: 'flex-start',
+      marginLeft: 5
+    },
     photoSquare: {
-      height: 200,
-      width: 200,
+      height: 300,
+      width: 300,
       justifyContent: 'center'
     },
     inputContainer: {
@@ -168,17 +210,39 @@ const styles = StyleSheet.create({
     buttonText: {
       marginLeft: 5
     },
-    trashButton: {
+    upButton: {
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      marginLeft: 20
+    },
+    upButtonImage: {
+      padding: 5,
+      height: 30,
+      width: 30
+    },
+    downButton: {
       justifyContent: 'flex-end',
+      alignItems: 'center',
       marginRight: 20
     },
-    trashButtonImage: {
+    downButtonImage: {
       padding: 5,
-      height: 20,
-      width: 20
+      height: 30,
+      width: 30
     },
     list: {
       // marginBottom: 25
+    },
+    buttonRow: {
+      height: 45,
+      width: 300,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 5,
+      flexDirection: 'row'
+    },
+    userText: {
+      fontWeight: 'bold'
     }
 
 });

@@ -45,7 +45,6 @@ export default class LoginForm extends Component{
                         //navigate to friends page
                         Actions.mainPage({
                             name: this.state.name,
-                            name: this.state.password
                         });
                     }}
                 >
@@ -56,7 +55,7 @@ export default class LoginForm extends Component{
                     onPress={() => {
                         //navigate to signup page
                         Actions.signup({
-                            name: this.state.name
+                            name: this.state.name,
                         });
                     }}
                 >

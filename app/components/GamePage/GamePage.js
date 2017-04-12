@@ -17,49 +17,49 @@ import {
 
 import {firebaseRef} from '../../services/Firebase'
 
-export default class MainPage extends Component{
+export default class GamePage extends Component{
   constructor(props){
         super(props);
         
-        this.gamesRef = firebaseRef.database().ref('games');
-        this.games = [];
+        this.imagesRef = firebaseRef.database().ref('images');
+        this.images = [];
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            newGame: '',
-            gameSource: this.ds.cloneWithRows([])
+            newImageURL: '',
+            imageSource: this.ds.cloneWithRows([])
         };
         
     }
     componentDidMount() {
-      this.gamesRef.on('child_added', (dataSnapshot) => {
-        this.games.push({id: dataSnapshot.key, text: dataSnapshot.val().game});
+      this.imagesRef.on('child_added', (dataSnapshot) => {
+        this.images.push({id: dataSnapshot.key, text: dataSnapshot.val().game});
         this.setState({
-          gameSource: this.state.gameSource.cloneWithRows(this.games)
+          imageSource: this.state.imageSource.cloneWithRows(this.images)
         });
       });
-      this.gamesRef.on('child_removed', (dataSnapshot) => {
-        this.games = this.games.filter((x) => x.id !== dataSnapshot.key);
+      this.imagesRef.on('child_removed', (dataSnapshot) => {
+        this.images = this.images.filter((x) => x.id !== dataSnapshot.key);
         this.setState({
-          gameSource: this.state.gameSource.cloneWithRows(this.games)
+          imageSource: this.state.imageSource.cloneWithRows(this.images)
         });
       });
     }
 
     addGame() {
       // TODO: write addGame so that game is added on button press
-      if(this.state.newGame !== ''){
-        this.gamesRef.push({
-          game: this.state.newGame
+      if(this.state.newImageURL !== ''){
+        this.imagesRef.push({
+          game: this.state.newImageURL
         });
         this.setState({
-          newGame: ''
+          newImageURL: ''
         });
       }
     }
 
     removeGame(rowData){
       //TODO: write removeGame so that game is removed onPress
-      this.gamesRef.child(rowData.id).remove();
+      this.imagesRef.child(rowData.id).remove();
     }
     goToGame(rowData){
       Actions.cameraView({
@@ -84,7 +84,6 @@ export default class MainPage extends Component{
               dataSource={this.state.gameSource}
               renderRow={this.renderRow.bind(this)}
               style={styles.list}
-              enableEmptySections={true}
             />
             
         </View>
@@ -144,7 +143,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       marginLeft: 25,
       marginTop: 15,
-      marginRight: 30,
+      marginRight: 30
     },
     input: {
       width: 200,
@@ -183,4 +182,4 @@ const styles = StyleSheet.create({
     }
 
 });
-AppRegistry.registerComponent('MainPage', () => MainPage);
+AppRegistry.registerComponent('GamePage', () => GamePage);

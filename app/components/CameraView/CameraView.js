@@ -14,6 +14,7 @@ import {
   Scene,
 } from 'react-native-router-flux';
 
+
 export default class CameraView extends Component{
   render(){
     return(
@@ -34,6 +35,9 @@ export default class CameraView extends Component{
     this.camera.capture()
       .then((data) => console.log(data))
       .catch(err => console.error(err));
+      Actions.mainPage({
+          
+      });
   }
 }
 const styles = StyleSheet.create({

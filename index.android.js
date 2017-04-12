@@ -12,17 +12,6 @@ import {
   Scene,
 } from 'react-native-router-flux';
 
-import * as firebase from 'firebase';
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "<your-api-key>",
-  authDomain: "<your-auth-domain>",
-  databaseURL: "https://console.firebase.google.com/project/snipe-c9392/database/data/",
-  storageBucket: "<your-storage-bucket>",
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 export default class Snipe extends Component{
    //  renderScene(route, navigator){
    //   switch(route.id){
@@ -32,7 +21,14 @@ export default class Snipe extends Component{
    //       return (<Signup user={route.user} navigator={navigator} title="Signup" />)
    //   }
    //  }
-
+constructor(props){
+        super(props);
+  
+        this.state = {
+            
+        };
+        
+    }
 
   render(){
     return(
@@ -45,6 +41,7 @@ export default class Snipe extends Component{
               initial={true}
               navigationBarStyle={styles.navBar} 
               hideNavBar={true}
+              direction='vertical'
             />
             <Scene 
               key='signup' 
@@ -81,6 +78,7 @@ export default class Snipe extends Component{
               hideNavBar={false}
               navigationBarStyle={styles.navBar}
               backButtonImage={require('Snipe/Images/back.png')}
+              direction='vertical'
             />
           </Scene>
        </Router>
@@ -90,7 +88,8 @@ export default class Snipe extends Component{
 const styles = StyleSheet.create({
     navBar: {
         backgroundColor: '#CF000F',
-        height: 55
+        height: 55,
+        elevation: 7
     },
     camNavBar: {
       backgroundColor: 'transparent',

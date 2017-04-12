@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, StyleSheet, Image, ListView} from 'react-native';
+import {AppRegistry, Text, View, StyleSheet, Image, ListView, Platform} from 'react-native';
 import LoginForm from './LoginForm';
 
 export default class Login extends Component{
-   constructor(){
-        super();
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            userDataSource: ds,
-        };
-    } 
+   // constructor(){
+   //      super();
+   //      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+   //      this.state = {
+   //          userDataSource: ds,
+   //      };
+   //  } 
     
   render(){
     return(

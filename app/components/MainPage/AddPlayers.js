@@ -17,21 +17,21 @@ import {
 
 import {firebaseRef} from '../../services/Firebase'
 
-export default class FriendsList extends Component{
+export default class AddPlayers extends Component{
   constructor(props){
         super(props);
-        
         this.friendsRef = firebaseRef.database().ref('friends');
+        this.gamesRef = firebaseRef.database().ref('games');
         this.friends = [];
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            newFriend: '',
-            gameSource: this.ds.cloneWithRows([]),
-            firstPress: true
+            newGame: '',
+            gameSource: this.ds.cloneWithRows([])
         };
         
     }
     componentDidMount() {
+      Actions.refresh({title: 'Add to ' + this.props.gameData.text});
       this.friendsRef.on('child_added', (dataSnapshot) => {
         this.friends.push({id: dataSnapshot.key, text: dataSnapshot.val().friend});
         this.setState({
@@ -46,49 +46,20 @@ export default class FriendsList extends Component{
       });
     }
 
-    addFriend() {
-      // TODO: write addGame so that game is added on button press
-      if(this.state.newFriend !== ''){
-        this.friendsRef.push({
-          friend: this.state.newFriend
+    addPlayer(rowData){
+       // var membersCount = this.gamesRef.child(this.props.gameData.id).child('members').val;
+       this.gamesRef.child(this.props.gameData.id).child('membersList').set({
+          member: rowData.text,
         });
-        this.setState({
-          newFriend: ''
-        });
-      }
-    }
-
-    addPlayers(rowData) {
-       
-      Actions.addPlayers({
-        gameData: rowData
-      });
-    }
-
-    removeGame(rowData){
-      //TODO: write removeGame so that game is removed onPress
-      this.friendsRef.child(rowData.id).remove();
-    }
-    goToGame(rowData){
-      Actions.gamePage({
-        name: rowData.text,
-        gameID: rowData.id
-      });
+       // this.gamesRef.child(this.props.gameData.id).set({
+       //    members: membersCount + 1
+       //  });
     }
 
 
   render(){
     return(
         <View style={styles.container}>
-            <View style={styles.inputContainer}>
-              <TextInput style={styles.input} placeholder="New Friend" onChangeText={(text) => this.setState({newFriend: text})} value={this.state.newGame}/>
-              <TouchableOpacity
-                onPress={() => this.addFriend()}
-                style={styles.button}
-              >
-                <Image source ={require('../../../Images/create-group-button.png')} style={styles.buttonImage}/>
-              </TouchableOpacity>
-            </View>
             <ListView
               dataSource={this.state.gameSource}
               renderRow={this.renderRow.bind(this)}
@@ -103,23 +74,11 @@ export default class FriendsList extends Component{
   renderRow(rowData) {
     return(
       <TouchableOpacity
-        onPress={() => this.goToGame(rowData)}
+        onPress={() => this.addPlayer(rowData)}
       >
         <View>
           <View style={styles.row}>
             <Text style={styles.rowText}>{rowData.text}</Text>
-            <TouchableOpacity
-                onPress={() => this.addPlayers(rowData)}
-                style={styles.trashButton}
-              >
-                <Image source ={require('../../../Images/trash.png')} style={styles.trashButtonImage}/>
-              </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => this.removeGame(rowData)}
-                style={styles.trashButton}
-              >
-                <Image source ={require('../../../Images/trash.png')} style={styles.trashButtonImage}/>
-              </TouchableOpacity>
           </View>
           <View style={styles.separator} />
         </View>
@@ -194,8 +153,8 @@ const styles = StyleSheet.create({
       width: 20
     },
     list: {
-      // marginBottom: 25
+      marginTop: 25
     }
 
 });
-AppRegistry.registerComponent('FriendsList', () => FriendsList);
+AppRegistry.registerComponent('AddPlayers', () => AddPlayers);

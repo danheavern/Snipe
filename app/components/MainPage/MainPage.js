@@ -26,7 +26,8 @@ export default class MainPage extends Component{
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             newGame: '',
-            gameSource: this.ds.cloneWithRows([])
+            gameSource: this.ds.cloneWithRows([]),
+            firstPress: true
         };
         
     }
@@ -49,12 +50,20 @@ export default class MainPage extends Component{
       // TODO: write addGame so that game is added on button press
       if(this.state.newGame !== ''){
         this.gamesRef.push({
-          game: this.state.newGame
+          game: this.state.newGame,
+          members: 0
         });
         this.setState({
           newGame: ''
         });
       }
+    }
+
+    addPlayers(rowData) {
+       
+      Actions.addPlayers({
+        gameData: rowData
+      });
     }
 
     removeGame(rowData){
@@ -100,6 +109,12 @@ export default class MainPage extends Component{
         <View>
           <View style={styles.row}>
             <Text style={styles.rowText}>{rowData.text}</Text>
+            <TouchableOpacity
+                onPress={() => this.addPlayers(rowData)}
+                style={styles.trashButton}
+              >
+                <Image source ={require('../../../Images/trash.png')} style={styles.trashButtonImage}/>
+              </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => this.removeGame(rowData)}
                 style={styles.trashButton}

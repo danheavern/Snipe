@@ -7,6 +7,9 @@ import Login from './app/components/Login/Login';
 import CameraView from './app/components/CameraView/CameraView';
 import MainPage from './app/components/MainPage/MainPage';
 import GamePage from './app/components/GamePage/GamePage';
+import PostTag from './app/components/PostTag/PostTag';
+import AddPlayers from './app/components/MainPage/AddPlayers';
+import ChoosePlayer from './app/components/PostTag/ChoosePlayer';
 
 import {
   Router,
@@ -90,7 +93,35 @@ constructor(props){
               navigationBarStyle={styles.navBar}
               backButtonImage={require('Snipe/Images/back.png')}
             />
+            <Scene 
+              key='addPlayers' 
+              component={AddPlayers} 
+              title='Add Players' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='choosePlayer' 
+              component={ChoosePlayer} 
+              title='Choose Player' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
+            <Scene 
+              key='postTag' 
+              component={PostTag} 
+              title='Choose Group' 
+              titleStyle={styles.title}
+              hideNavBar={false}
+              navigationBarStyle={styles.navBar}
+              backButtonImage={require('Snipe/Images/back.png')}
+            />
           </Scene>
+
        </Router>
       );
   }
